@@ -1,4 +1,6 @@
+using BookClubApp.Business.Services;
 using BookClubApp.DataAccess.Context;
+using BookClubApp.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options=>
 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+//DI Configurasyonu
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IBookService,BookService>();
 
 var app = builder.Build();
 
