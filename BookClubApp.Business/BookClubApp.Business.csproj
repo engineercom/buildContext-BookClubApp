@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookClubApp.DataAccess\BookClubApp.DataAccess.csproj" />
+    <ProjectReference Include="..\BookClubApp.Entity\BookClubApp.Entity.csproj" />
+  </ItemGroup>
+
+</Project>
