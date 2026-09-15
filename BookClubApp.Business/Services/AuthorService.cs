@@ -29,7 +29,11 @@ public class AuthorService : IAuthorService
    
 
     public async Task<Author?> GetByIdAsync(int id)=>await _repository.GetByIdAsync(id);
-   
+
+    public async Task SaveChangesAsync()
+    {
+        await _repository.SaveChangesAsync();
+    }
 
     public async Task UpdateAsync(Author author)
     {

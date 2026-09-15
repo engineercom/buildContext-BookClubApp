@@ -11,4 +11,5 @@ public interface IAuthorService
     Task AddAsync(Author author);
     Task UpdateAsync(Author author);
     Task DeleteAsync(Author author);
+    Task SaveChangesAsync();
 }

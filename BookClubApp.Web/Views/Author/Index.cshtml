@@ -17,12 +17,18 @@
     <tbody>
         @foreach (var author in Model)
         {
-            <tr>
+            <tr style="width:300px;">
                 <td>@author.FullName</td>
-                <td>@author.Biography?.Substring(0,100)</td>
+                <td>
+                @(author.Biography!=null? author.Biography.Substring(0,Math.Min(author.Biography.Length,100)):"Biography is null")
+
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@author.Id" class="btn btn-outline-info">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@author.Id" class="btn btn-outline-info">Delete</a>
+                    <form asp-action="Delete" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@author.Id" />
+                        <button type="submit"  class="btn btn-danger d-inline-block">Delete</button>
+                   </form>
                 </td>
 
             </tr>
