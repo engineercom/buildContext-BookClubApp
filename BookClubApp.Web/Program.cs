@@ -11,6 +11,8 @@ builder.Services.AddDbContext<AppDbContext>(options=>
 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 //DI Configurasyonu
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+
 builder.Services.AddScoped<IBookService,BookService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<ICategoryService,CategoryService>();

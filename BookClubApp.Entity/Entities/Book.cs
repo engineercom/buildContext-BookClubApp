@@ -12,11 +12,8 @@ namespace BookClubApp.Entity.Entities
         public string Title { get; set; } = string.Empty;
         public string? Description { get; set; }
         public DateTime PublishedDate { get; set; }
-
         public int AuthorId { get; set; }
-        //navigation menu
         public Author Author { get; set; }
-
         public ICollection<Category> Categories { get; set; } = new HashSet<Category>();
     }
 }

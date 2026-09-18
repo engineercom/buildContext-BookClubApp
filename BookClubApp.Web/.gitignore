@@ -31,3 +31,9 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 .DS_Store
+
+# GitHub'a gitmesini istemediğiniz Controller
+Controllers/TestController.cs
+
+# O Controller'a ait tüm View dosyaları (Klasör olarak)
+Views/Test/
