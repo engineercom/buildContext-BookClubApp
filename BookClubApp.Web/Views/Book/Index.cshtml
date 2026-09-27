@@ -31,7 +31,9 @@
                 </td>
                 <td>
                     <a asp-action="Edit" class="btn  btn-sm btn-outline-info" asp-route-id="@book.Id">Edit</a>
-                    <a asp-action="Delete" class="btn  btn-sm  btn-outline-danger" asp-route-id="@book.Id">Delete</a>
+                   <form method="post" asp-route-id="@book.Id" class="d-inline" asp-action="Delete">
+                       <button type="submit" class="btn btn-sm btn-outline-danger ">Delete</button>
+                   </form>
                 </td>
                
             </tr>

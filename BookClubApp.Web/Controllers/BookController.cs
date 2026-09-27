@@ -142,6 +142,19 @@ public class BookController : Controller
 
         return RedirectToAction("Index");
     }
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var book = await _bookService.GetbyIdParamsAsync(id,b=>b.Author,b=>b.Categories);
+        if (book is null)
+        {
+            return NotFound();
+        }
+
+        await _bookService.DeleteAsync(book);
+
+        return RedirectToAction("Index");
+    }
    }
     
 
