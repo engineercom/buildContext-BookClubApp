@@ -26,7 +26,7 @@ public class BookController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var books = await _bookService.GetAllParamsAsync(b=>b.Author,b=>b.Categories);
+        var books = await _bookService.GetAllParamsAsync(b => b.Author, b => b.Categories);
         return View(books);
     }
     [HttpGet]
@@ -60,16 +60,16 @@ public class BookController : Controller
             Title = vm.Title,
             Description = vm.Description,
             PublishedDate = vm.PublishedDate,
-            IsActive =true,
+            IsActive = true,
             AuthorId = vm.AuthorId
 
         };
         var categories = await _categoryService.GetAllAsync();
 
-        if (vm.SelectedCategoryIds!=null&&vm.SelectedCategoryIds.Any())
+        if (vm.SelectedCategoryIds != null && vm.SelectedCategoryIds.Any())
         {
             var selectedCategories = categories.Where(c => vm.SelectedCategoryIds.Contains(c.Id)).ToList();
-            book.Categories= selectedCategories;
+            book.Categories = selectedCategories;
         }
 
         await _bookService.AddAsync(book);
@@ -79,26 +79,27 @@ public class BookController : Controller
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        var book = await _bookService.GetbyIdParamsAsync(id,b=>b.Author,b=>b.Categories);
+        var book = await _bookService.GetbyIdParamsAsync(id, b => b.Author, b => b.Categories);
         if (book is null) return NotFound();
-       
+
         //Kategori Listesi
         var selectedCategories = book.Categories.Select(c => c.Id) ?? new List<int>();
 
         await FillEditAction(book.AuthorId, selectedCategories);
 
-        var vm = new BookEditViewModel { 
-        
-        Id=book.Id,
-        Title=book.Title,
-        Description=book.Description,
-        AuthorId=book.AuthorId
+        var vm = new BookEditViewModel
+        {
+
+            Id = book.Id,
+            Title = book.Title,
+            Description = book.Description,
+            AuthorId = book.AuthorId
 
         };
 
         return View(vm);
     }
-    private async Task FillEditAction(int authorId,IEnumerable<int> selectedCategories)
+    private async Task FillEditAction(int authorId, IEnumerable<int> selectedCategories)
     {
         //Yazar Listesi
         var authors = await _authorService.GetAllAsync();
@@ -113,7 +114,7 @@ public class BookController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(BookEditViewModel vm)
     {
-        var book = await _bookService.GetbyIdParamsAsync(vm.Id,b=>b.Author,b=>b.Categories);
+        var book = await _bookService.GetbyIdParamsAsync(vm.Id, b => b.Author, b => b.Categories);
         if (book is null)
         {
             return NotFound();
@@ -131,7 +132,7 @@ public class BookController : Controller
 
         var categories = await _categoryService.GetAllAsync();
 
-        if (vm.SelectedCategoryIds!=null&&vm.SelectedCategoryIds.Any())
+        if (vm.SelectedCategoryIds != null && vm.SelectedCategoryIds.Any())
         {
             book.Categories.Clear();
             var selectedCategories = categories.Where(c => vm.SelectedCategoryIds.Contains(c.Id)).ToList();
@@ -145,7 +146,7 @@ public class BookController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
-        var book = await _bookService.GetbyIdParamsAsync(id,b=>b.Author,b=>b.Categories);
+        var book = await _bookService.GetbyIdParamsAsync(id, b => b.Author, b => b.Categories);
         if (book is null)
         {
             return NotFound();
@@ -155,7 +156,17 @@ public class BookController : Controller
 
         return RedirectToAction("Index");
     }
-   }
-    
+    public async Task<IActionResult> GetDetail(int id)
+    {
+        var book = await _bookService.GetbyIdParamsAsync(id, b => b.Author, b => b.Categories);
+        if (book is null)
+            return NotFound();
+
+
+        return View(book);
+    }
+
+}
+
 
 
